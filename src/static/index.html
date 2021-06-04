@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="index.css">
+    <title>Member Club</title>
+</head>
+<body>
+    <h1 id="welcomeHeader">Welcome to the Club!</h1>
+
+    <div id="content">
+        <h2>New member</h2>
+        <form method="post">
+            <table id="formTable">
+                <tbody>
+                <tr>
+                    <td><label>Name: </label></td>
+                    <td><input id="name" name="name" type="text" placeholder="Enter name..." /></td>
+                </tr>
+                <tr>
+                    <td><label>Email: </label></td>
+                    <td><input id="email" name="email" type="email" placeholder="Enter email..." /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td id="buttonsCell">
+                        <div><button>Add</button></div>
+                        <div><button>Clear</button></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div id="membersSection">
+        <h2>Members</h2>
+        <table>
+            <thead>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Registration date</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ivan</td>
+                <td>ivan@gmail.com</td>
+                <td>10.05.2021</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

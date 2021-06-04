@@ -1,0 +1,65 @@
+h2 {
+    font-family: Calibri;
+    font-size: 28px;
+}
+
+#welcomeHeader {
+    text-align: center;
+    font-family: Calibri;
+    font-size: 36px;
+    margin: 50px;
+}
+
+#content {
+    margin: auto;
+    width: 70%;
+}
+
+#content form input {
+    font-family: Calibri;
+    font-size: 22px;
+}
+
+#content label {
+    font-family: Calibri;
+    font-size: 22px;
+}
+
+#content #formTable td {
+    padding-bottom: 10px;
+    padding-right: 5px;
+}
+
+#content #formTable #buttonsCell {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#content button {
+    font-family: Calibri;
+    font-size: 22px;
+}
+
+#membersSection {
+    margin: auto;
+    width: 66%;
+}
+
+#membersSection h2 {
+    text-align: center;
+}
+
+#membersSection table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#membersSection table td, th {
+    font-family: Calibri;
+    font-size: 22px;
+    text-align: left;
+    padding: 5px 10px;
+    border: 1px solid black;
+}
