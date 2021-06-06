@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Member struct {
-	name string
-	email string
-	registrationDate time.Time
+	Name string
+	Email string
+	RegistrationDate time.Time
 }
