@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/src/static/index.css">
     <title>Member Club</title>
 </head>
 <body>
@@ -42,12 +42,14 @@
             <th>Registration date</th>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>Ivan</td>
-                <td>ivan@gmail.com</td>
-                <td>10.05.2021</td>
-            </tr>
+            {{range $i, $e := .Items}}
+                <tr>
+                    <td>{{ increment $i }}</td>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .Email }}</td>
+                    <td>{{ .RegistrationDate.Format "02.01.2006" }}</td>
+                </tr>
+            {{end}}
             </tbody>
         </table>
     </div>
