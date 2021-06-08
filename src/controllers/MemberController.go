@@ -5,11 +5,40 @@ import (
 	template2 "html/template"
 	"log"
 	"net/http"
+	"regexp"
 	"time"
 )
 
 type Data struct {
-	Items []models.Member
+	Members []models.Member
+	Errors map[string]string
+}
+
+func (data *Data) Validate(name string, email string) bool {
+	validateName := func(name string) bool {
+		rgx := regexp.MustCompile("^([A-Za-z]+(\\s[a-zA-Z]+)*)$")
+		return rgx.Match([]byte(name))
+	}
+	validateEmail := func(email string) bool {
+		rgx := regexp.MustCompile(
+			"^([A-Za-z0-9_\\.]+@[A-Za-z0-9]+\\.[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*)$")
+		return rgx.Match([]byte(email))
+	}
+	data.Errors = make(map[string]string)
+	if !validateName(name) {
+		data.Errors["name"] = "Name can contain only letters."
+	}
+	if !validateEmail(email) {
+		data.Errors["email"] = "Enter valid email, please."
+	}
+	if len(data.Errors) == 0 {
+		data.Members = append(data.Members, models.Member{
+			Name:             name,
+			Email:            email,
+			RegistrationDate: time.Now(),
+		})
+	}
+	return len(data.Errors) == 0
 }
 
 var data Data
@@ -30,21 +59,9 @@ func HandleMembers(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if r.Method == "POST" {
-		// get form data
 		name := r.PostFormValue("name")
 		email := r.PostFormValue("email")
-
-		// create member
-		registrationDate := time.Now()
-		newMember := models.Member{
-			Name: name,
-			Email: email,
-			RegistrationDate: registrationDate,
-		}
-		// add new member to array
-		data.Items = append(data.Items, newMember)
-
-		// redirect with method GET
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		data.Validate(name, email)
+		http.Redirect(w, r, "/", http.StatusSeeOther)	// redirect GET
 	}
 }

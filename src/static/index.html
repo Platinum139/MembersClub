@@ -8,15 +8,35 @@
 <body>
     <h1 id="welcomeHeader">Welcome to the Club!</h1>
 
+    <style type="text/css">.error {
+            color: red;
+            font-family: Calibri;
+            font-size: 18px;
+            margin: 0;
+        }
+    </style>
+
     <div id="content">
         <h2>New member</h2>
         <form method="post">
             <table id="formTable">
                 <tbody>
+                {{ with .Errors.name }}
+                    <tr>
+                        <td></td>
+                        <td><p class="error">{{.}}</p></td>
+                    </tr>
+                {{ end }}
                 <tr>
                     <td><label>Name: </label></td>
                     <td><input id="name" name="name" type="text" placeholder="Enter name..." /></td>
                 </tr>
+                {{ with .Errors.email }}
+                    <tr>
+                        <td></td>
+                        <td><p class="error">{{.}}</p></td>
+                    </tr>
+                {{ end }}
                 <tr>
                     <td><label>Email: </label></td>
                     <td><input id="email" name="email" type="email" placeholder="Enter email..." /></td>
@@ -42,7 +62,7 @@
             <th>Registration date</th>
             </thead>
             <tbody>
-            {{range $i, $e := .Items}}
+            {{range $i, $e := .Members}}
                 <tr>
                     <td>{{ increment $i }}</td>
                     <td>{{ .Name }}</td>
