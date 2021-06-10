@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/src/static/index.css">
+    <script src="/src/static/index.js"></script>
     <title>Member Club</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
 
     <div id="content">
         <h2>New member</h2>
-        <form method="post">
+        <form action="/" method="post">
             <table id="formTable">
                 <tbody>
                 {{ with .Errors.emailExists }}
@@ -51,7 +52,7 @@
                     <td></td>
                     <td id="buttonsCell">
                         <div><button>Add</button></div>
-                        <div><button>Clear</button></div>
+                        <div><button type="button" onclick="clearBtnOnClick()">Clear</button></div>
                     </td>
                 </tr>
                 </tbody>
