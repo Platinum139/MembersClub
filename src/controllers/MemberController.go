@@ -56,25 +56,33 @@ var data Data
 
 func HandleMembers(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.Method, r.URL)
-
-	if r.Method == "GET" {
-		functions := template2.FuncMap{"increment": func(i int) int { return i + 1 }}
-		template := template2.Must(template2.
-				New("index.html").
-				Funcs(functions).
-				ParseFiles("src/static/index.html"))
-		err := template.Execute(w, data)
-		if err != nil {
-			log.Println(err)
-			return
-		}
-	}
-	if r.Method == "POST" {
-		name := r.PostFormValue("name")
-		email := r.PostFormValue("email")
-		if data.Validate(name, email) && !data.MemberExists(email) {
-			data.AddMember(name, email)
-		}
-		http.Redirect(w, r, "/", http.StatusSeeOther)	// redirect GET
+	switch r.Method {
+	case "GET":
+		handleGET(w, r)
+	case "POST":
+		handlePost(w, r)
 	}
 }
+
+func handleGET(w http.ResponseWriter, r *http.Request) {
+	functions := template2.FuncMap{"increment": func(i int) int { return i + 1 }}
+	template := template2.Must(template2.
+		New("index.html").
+		Funcs(functions).
+		ParseFiles("src/static/index.html"))
+	err := template.Execute(w, data)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}
+
+func handlePost(w http.ResponseWriter, r *http.Request) {
+	name := r.PostFormValue("name")
+	email := r.PostFormValue("email")
+	if data.Validate(name, email) && !data.MemberExists(email) {
+		data.AddMember(name, email)
+	}
+	http.Redirect(w, r, "/", http.StatusSeeOther)	// redirect GET
+}
+
