@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	template2 "html/template"
+	"html/template"
 	"log"
 	"net/http"
 )
@@ -20,12 +20,12 @@ func HandleMembers(w http.ResponseWriter, r *http.Request) {
 
 func handleGET(w http.ResponseWriter, r *http.Request) {
 	log.Print("handleGET")
-	functions := template2.FuncMap{"increment": func(i int) int { return i + 1 }}
-	template := template2.Must(template2.
+	functions := template.FuncMap{"increment": func(i int) int { return i + 1 }}
+	indexTmpl := template.Must(template.
 		New("index.html").
 		Funcs(functions).
 		ParseFiles("src/static/index.html"))
-	err := template.Execute(w, data)
+	err := indexTmpl.Execute(w, data)
 	if err != nil {
 		log.Println(err)
 		return
