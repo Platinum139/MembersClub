@@ -55,16 +55,17 @@ func (data *Data) AddMember(name string, email string) {
 var data Data
 
 func HandleMembers(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.Method, r.URL)
+	log.Print("HandleMembers", r.Method, r.URL)
 	switch r.Method {
 	case "GET":
 		handleGET(w, r)
 	case "POST":
-		handlePost(w, r)
+		handlePOST(w, r)
 	}
 }
 
 func handleGET(w http.ResponseWriter, r *http.Request) {
+	log.Print("handleGET")
 	functions := template2.FuncMap{"increment": func(i int) int { return i + 1 }}
 	template := template2.Must(template2.
 		New("index.html").
@@ -77,9 +78,11 @@ func handleGET(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func handlePost(w http.ResponseWriter, r *http.Request) {
+func handlePOST(w http.ResponseWriter, r *http.Request) {
+	log.Print("handlePOST ")
 	name := r.PostFormValue("name")
 	email := r.PostFormValue("email")
+	log.Print("name: ", name, " email: ", email)
 	if data.Validate(name, email) && !data.MemberExists(email) {
 		data.AddMember(name, email)
 	}
