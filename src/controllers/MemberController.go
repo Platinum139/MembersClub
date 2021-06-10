@@ -31,14 +31,25 @@ func (data *Data) Validate(name string, email string) bool {
 	if !validateEmail(email) {
 		data.Errors["email"] = "Enter valid email, please."
 	}
-	if len(data.Errors) == 0 {
-		data.Members = append(data.Members, models.Member{
-			Name:             name,
-			Email:            email,
-			RegistrationDate: time.Now(),
-		})
-	}
 	return len(data.Errors) == 0
+}
+
+func (data *Data) MemberExists(email string) bool {
+	for _, member := range data.Members {
+		if member.Email == email {
+			data.Errors["emailExists"] = "Member with this email already exists."
+			return true
+		}
+	}
+	return false
+}
+
+func (data *Data) AddMember(name string, email string) {
+	data.Members = append(data.Members, models.Member{
+		Name:             name,
+		Email:            email,
+		RegistrationDate: time.Now(),
+	})
 }
 
 var data Data
@@ -61,7 +72,9 @@ func HandleMembers(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		name := r.PostFormValue("name")
 		email := r.PostFormValue("email")
-		data.Validate(name, email)
+		if data.Validate(name, email) && !data.MemberExists(email) {
+			data.AddMember(name, email)
+		}
 		http.Redirect(w, r, "/", http.StatusSeeOther)	// redirect GET
 	}
 }

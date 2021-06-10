@@ -21,6 +21,12 @@
         <form method="post">
             <table id="formTable">
                 <tbody>
+                {{ with .Errors.emailExists }}
+                    <tr>
+                        <td></td>
+                        <td><p class="error">{{.}}</p></td>
+                    </tr>
+                {{ end }}
                 {{ with .Errors.name }}
                     <tr>
                         <td></td>
