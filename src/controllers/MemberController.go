@@ -9,7 +9,7 @@ import (
 var data Data
 
 func HandleMembers(w http.ResponseWriter, r *http.Request) {
-	log.Print("HandleMembers", r.Method, r.URL)
+	log.Println("HandleMembers", r.Method, r.URL)
 	switch r.Method {
 	case "GET":
 		handleGET(w, r)
@@ -19,7 +19,7 @@ func HandleMembers(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleGET(w http.ResponseWriter, r *http.Request) {
-	log.Print("handleGET")
+	log.Println("handleGET")
 	functions := template.FuncMap{"increment": func(i int) int { return i + 1 }}
 	indexTmpl := template.Must(template.
 		New("index.html").
@@ -33,7 +33,7 @@ func handleGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func handlePOST(w http.ResponseWriter, r *http.Request) {
-	log.Print("handlePOST ")
+	log.Println("handlePOST")
 	name := r.PostFormValue("name")
 	email := r.PostFormValue("email")
 	log.Print("name: ", name, " email: ", email)
