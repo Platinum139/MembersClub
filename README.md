@@ -15,6 +15,8 @@ Clone GitHub repository to this folder.
 Navigate to the project directory.
 
 ### Step 2. Running application.
+Make sure you have Go 1.16 installed on your computer.
+
 Execute this command:
 ```
 project_folder> go run main.go
